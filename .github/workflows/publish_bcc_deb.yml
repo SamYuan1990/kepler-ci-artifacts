@@ -45,3 +45,9 @@ jobs:
       with:
         name: bcc.linux-amd64.tar.gz
         path: /tmp/bcc_*.tar.gz
+    - name: Release
+      uses: softprops/action-gh-release@master
+      with:
+          files: |
+            bcc.linux-amd64.tar.gz
+            /tmp/bcc_*.tar.gz
