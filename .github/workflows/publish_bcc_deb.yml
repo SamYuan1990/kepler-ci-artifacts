@@ -38,14 +38,15 @@ jobs:
           sudo /usr/lib/pbuilder/pbuilder-satisfydepends
           sudo ./scripts/build-deb.sh 
           sudo tar czvf /tmp/bcc_${BCC_TAG}.tar.gz *.deb
-    - name: upload bcc deb artifact
-      uses: actions/upload-artifact@v2
-      env:
-        GITHUB_TOKEN: ${{ github.token }}
-      with:
-        name: bcc.linux-amd64.tar.gz
-        path: /tmp/bcc_*.tar.gz
-    - name: Release
+    #- name: upload bcc deb artifact
+    #  uses: actions/upload-artifact@v2
+    #  env:
+    #    GITHUB_TOKEN: ${{ github.token }}
+    #  with:
+    #    name: bcc.linux-amd64.tar.gz
+    #    path: /tmp/bcc_*.tar.gz
+    - if: startsWith(github.event.ref, 'refs/tags/')
+      name: Release
       uses: softprops/action-gh-release@master
       with:
           files: |
